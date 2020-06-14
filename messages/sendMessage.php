@@ -18,6 +18,11 @@
         $lastMessage->success = false;
         
     } else {
+        $msgPK = $conn->query("SELECT pk FROM messages WHERE sender = '".$sender."' && recipient = '".$recipient."' || sender = '".$recipient."' && recipient = '".$sender."'");
+        if($msgPK->num_rows == 0) {
+            $conn->query("INSERT INTO dialogs (wrote,written) VALUES ('".$sender."','".$recipient."'), ('".$recipient."','".$sender."')");
+        }
+
         $conn->query("INSERT INTO messages (sender, recipient, msgText, `read`) VALUES ('".$sender."','".$recipient."','".$msgText."', 0)");
 
         $message = $conn->query("SELECT pk,sender,recipient,msgText FROM messages WHERE sender = '".$sender."' && recipient = '".$recipient."' ORDER BY pk DESC")->fetch_object();
@@ -34,6 +39,7 @@
             $message->imgSrc = $add->imgSrc;
             $lastMessage->success = true;
             $lastMessage->message = $message;
+            $message->rName = $conn->query("SELECT name FROM users WHERE username = '".$message->recipient."'")->fetch_object()->name;
         }
     }
 
