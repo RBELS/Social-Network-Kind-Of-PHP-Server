@@ -7,7 +7,7 @@ if($conn->connect_error) {
 }
 
 $id = $_COOKIE["id"];
-$result = $conn->query("SELECT name FROM users WHERE id = ".$id);
+$result = $conn->query("SELECT name,username FROM users WHERE id = ".$id);
 $obj;
 $json;
 
