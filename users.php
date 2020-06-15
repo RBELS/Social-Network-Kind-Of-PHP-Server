@@ -17,7 +17,7 @@ $mode = $_GET["mode"];//1 - all     2 - followed    3 - followers
 
 
 
-$result = $conn->query("SELECT name,username,status,country,city,imgSrc,id FROM `users`");
+$result = $conn->query("SELECT name,username,status,country,city,imgSrc,pk FROM `users`");
 $obj = [];
 $username;
 
