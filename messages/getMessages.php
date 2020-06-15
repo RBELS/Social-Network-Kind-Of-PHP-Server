@@ -8,10 +8,12 @@
     $id = $_COOKIE["id"];
     $username = $conn->query("SELECT username FROM users WHERE id = ".$id)->fetch_object()->username;
 
+    $conn->query("UPDATE messages SET `read` = 1 WHERE `read` = 0 && sender = '".$recipient."' && recipient = '".$username."'");
+
     if($page > 1) {
-        $messagesQuery = $conn->query("SELECT pk,sender,recipient,msgText FROM messages WHERE (sender = '".$username."' && recipient = '".$recipient."' || sender = '".$recipient."' && recipient = '".$username."') && pk <= ".$lastPK." ORDER BY pk DESC");
+        $messagesQuery = $conn->query("SELECT pk,sender,recipient,msgText,`read` FROM messages WHERE (sender = '".$username."' && recipient = '".$recipient."' || sender = '".$recipient."' && recipient = '".$username."') && pk <= ".$lastPK." ORDER BY pk DESC");
     } else {
-        $messagesQuery = $conn->query("SELECT pk,sender,recipient,msgText FROM messages WHERE (sender = '".$username."' && recipient = '".$recipient."' || sender = '".$recipient."' && recipient = '".$username."') ORDER BY pk DESC");
+        $messagesQuery = $conn->query("SELECT pk,sender,recipient,msgText,`read` FROM messages WHERE (sender = '".$username."' && recipient = '".$recipient."' || sender = '".$recipient."' && recipient = '".$username."') ORDER BY pk DESC");
     }
 
     // $messagesQuery = $conn->query("SELECT pk,sender,recipient,msgText FROM messages WHERE (sender = '".$username."' && recipient = '".$recipient."' || sender = '".$recipient."' && recipient = '".$username."') && pk < ".$lastPK." ORDER BY pk DESC");
@@ -38,6 +40,7 @@
         $messages[$i]->name = $add->name;
         $messages[$i]->imgSrc = $add->imgSrc;
     }
+
     
     // print_r($messages);
     echo json_encode($messages);

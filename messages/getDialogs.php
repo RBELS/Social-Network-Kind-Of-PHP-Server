@@ -16,6 +16,7 @@
 
     for($i = 0;$i < count($dialogs);$i++) {
         $dialogs[$i]->name = $conn->query("SELECT name FROM users WHERE username = '".$dialogs[$i]->written."'")->fetch_object()->name;
+        $dialogs[$i]->unread = $conn->query("SELECT pk from messages WHERE sender = '".$dialogs[$i]->written."' && recipient = '".$username."' && `read` = 0")->num_rows;
     }
 
     echo json_encode($dialogs);
