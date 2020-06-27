@@ -3,7 +3,7 @@
     setcookie("id",null,$time);
 
     $send = (object)[];
-    $send["success"] = true;
+    $send->success = true;
 
     echo json_encode($send);
 ?>

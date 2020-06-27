@@ -14,10 +14,11 @@ $json = [];
 $page = $_GET["page"];
 $pageNum = $_GET["num"];
 $mode = $_GET["mode"];//1 - all     2 - followed    3 - followers
+$like = $_GET["like"];
 
 
 
-$result = $conn->query("SELECT name,username,status,country,city,imgSrc,pk FROM `users`");
+$result = $conn->query("SELECT name,username,status,country,city,imgSrc,pk FROM `users` WHERE username LIKE '%".$like."%'");
 $obj = [];
 $username;
 

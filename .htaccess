@@ -1,6 +1,6 @@
 <IfModule dir_module>
     DirectoryIndex index.html
-    Header set Access-Control-Allow-Origin "http://192.168.0.109:3000"
+    Header set Access-Control-Allow-Origin "http://192.168.0.106:19006"
     Header set Access-Control-Allow-Credentials true
     Header set Access-Control-Allow-Headers Content-Type
 </IfModule>

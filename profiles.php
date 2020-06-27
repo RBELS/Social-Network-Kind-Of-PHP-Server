@@ -32,6 +32,9 @@ if($result->num_rows == 1) {
     $send->success = true;
     $send->data = $row;
     $send->data->followed = $ifFollowed;
+    $send->data->posts = 0;
+    $send->data->followers = $conn->query("SELECT pk FROM follows WHERE followed = '".$send->data->username."'")->num_rows;
+    $send->data->follows = $conn->query("SELECT pk FROM follows WHERE follows = '".$send->data->username."'")->num_rows;
 }
 else {
     $send["success"] = false;
